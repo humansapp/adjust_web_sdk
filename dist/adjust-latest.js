@@ -3635,6 +3635,31 @@ function decodeErrorMessage(_ref10) {
 
 var _storageName = globals.namespace;
 var _storeNames = scheme_map.storeNames.left;
+
+function _getItem(key) {
+  try {
+    var storage = window.localStorage;
+    return storage.getItem(key);
+  } catch (_unused) {
+    return null;
+  }
+}
+
+function _setItem(key, value) {
+  try {
+    var storage = window.localStorage;
+    storage.setItem(key, value);
+  } catch (_unused2) {// do nothing
+  }
+}
+
+function _removeItem(key) {
+  try {
+    var storage = window.localStorage;
+    storage.removeItem(key);
+  } catch (_unused3) {// do nothing
+  }
+}
 /**
  * Get the value for specified key
  *
@@ -3643,8 +3668,9 @@ var _storeNames = scheme_map.storeNames.left;
  * @private
  */
 
+
 function _get(key) {
-  var value = JSON.parse(localStorage.getItem("".concat(_storageName, ".").concat(key)));
+  var value = JSON.parse(_getItem("".concat(_storageName, ".").concat(key)));
   return (value instanceof Array ? value : convertRecord({
     storeName: _storeNames.preferences.name,
     dir: 'right',
@@ -3662,9 +3688,9 @@ function _get(key) {
 
 function _set(key, value) {
   if (!value) {
-    localStorage.removeItem("".concat(_storageName, ".").concat(key));
+    _removeItem("".concat(_storageName, ".").concat(key));
   } else {
-    localStorage.setItem("".concat(_storageName, ".").concat(key), JSON.stringify(value instanceof Array ? value : convertRecord({
+    _setItem("".concat(_storageName, ".").concat(key), JSON.stringify(value instanceof Array ? value : convertRecord({
       storeName: _storeNames.preferences.name,
       dir: 'left',
       record: value
@@ -3682,7 +3708,7 @@ function quick_storage_clear() {
         store = _ref2[1];
 
     if (!store.permanent) {
-      localStorage.removeItem("".concat(_storageName, ".").concat(store.name));
+      _removeItem("".concat(_storageName, ".").concat(store.name));
     }
   });
 }
@@ -5342,7 +5368,7 @@ var storage_Promise = typeof Promise === 'undefined' ? __webpack_require__(3).Pr
 var _methods = {
   getAll: _getAll,
   getFirst: _getFirst,
-  getItem: _getItem,
+  getItem: storage_getItem,
   filterBy: _filterBy,
   addItem: _addItem,
   addBulk: _addBulk,
@@ -5402,7 +5428,7 @@ function _getFirst(storage, storeName) {
  */
 
 
-function _getItem(storage, storeName, target) {
+function storage_getItem(storage, storeName, target) {
   return storage.getItem(storeName, convertValues({
     storeName: storeName,
     dir: 'left',

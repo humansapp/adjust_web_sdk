@@ -6,6 +6,33 @@ import SchemeMap from './scheme-map'
 const _storageName = Globals.namespace
 const _storeNames = SchemeMap.storeNames.left
 
+function _getItem (key) {
+  try {
+    const storage = window.localStorage
+    return storage.getItem(key)
+  } catch {
+    return null
+  }
+}
+
+function _setItem (key, value) {
+  try {
+    const storage = window.localStorage
+    storage.setItem(key, value)
+  } catch {
+    // do nothing
+  }
+}
+
+function _removeItem (key) {
+  try {
+    const storage = window.localStorage
+    storage.removeItem(key)
+  } catch {
+    // do nothing
+  }
+}
+
 /**
  * Get the value for specified key
  *
@@ -14,7 +41,7 @@ const _storeNames = SchemeMap.storeNames.left
  * @private
  */
 function _get (key) {
-  const value = JSON.parse(localStorage.getItem(`${_storageName}.${key}`))
+  const value = JSON.parse(_getItem(`${_storageName}.${key}`))
   return (value instanceof Array
     ? value
     : convertRecord({
@@ -33,9 +60,9 @@ function _get (key) {
  */
 function _set (key, value) {
   if (!value) {
-    localStorage.removeItem(`${_storageName}.${key}`)
+    _removeItem(`${_storageName}.${key}`)
   } else {
-    localStorage.setItem(`${_storageName}.${key}`, JSON.stringify(
+    _setItem(`${_storageName}.${key}`, JSON.stringify(
       value instanceof Array
         ? value
         : convertRecord({
@@ -54,7 +81,7 @@ function clear () {
   entries(_storeNames)
     .forEach(([, store]) => {
       if (!store.permanent) {
-        localStorage.removeItem(`${_storageName}.${store.name}`)
+        _removeItem(`${_storageName}.${store.name}`)
       }
     })
 }
