@@ -17,7 +17,8 @@ module.exports = () => ({
     filename: '[name].js',
     library: 'Adjust',
     libraryTarget: 'umd',
-    libraryExport: 'default'
+    libraryExport: 'default',
+    globalObject: 'this'
   },
   optimization: {
     minimize: true,

@@ -7,7 +7,7 @@
 		exports["Adjust"] = factory();
 	else
 		root["Adjust"] = factory();
-})(window, function() {
+})(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
