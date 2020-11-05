@@ -10,7 +10,15 @@ type PageVisibilityApiMap = {|
   visibilityChange: PageVisibilityEventName
 |}
 
-let _connected: boolean = navigator.onLine
+function _getConnected (): boolean {
+  try {
+    return navigator.onLine
+  } catch {
+    return false
+  }
+}
+
+let _connected: boolean = _getConnected()
 
 /**
  * Bind to online and offline events

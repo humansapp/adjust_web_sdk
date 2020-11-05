@@ -6392,12 +6392,23 @@ function backOff(attempts
   visibilityChange: PageVisibilityEventName
 |}*/
 
+function _getConnected()
+/*: boolean*/
+{
+  try {
+    return navigator.onLine;
+  } catch (_unused) {
+    return false;
+  }
+}
+
 var _connected
 /*: boolean*/
-= navigator.onLine;
+= _getConnected();
 /**
  * Bind to online and offline events
  */
+
 
 function register()
 /*: void*/
