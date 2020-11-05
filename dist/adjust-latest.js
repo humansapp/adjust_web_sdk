@@ -2192,7 +2192,12 @@ function _log
   var time = new Date().toISOString();
   var spaces = methodName === 'log' ? '  ' : methodName === 'info' ? ' ' : '';
   var messagePrefix = ["[".concat(globals.namespace, "]"), time, "".concat(methodName.toUpperCase(), ":").concat(spaces)];
-  var outputContainer = _output ? document.querySelector(_output) : null;
+  var outputContainer = null;
+
+  try {
+    outputContainer = document.querySelector(_output);
+  } catch (_unused) {// do nothing
+  }
 
   for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
     args[_key - 2] = arguments[_key];

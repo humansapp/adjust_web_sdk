@@ -99,7 +99,12 @@ function _log<T> (methodName: MethodNameT, logLevel: LogLevelT, ...args: Array<T
   const time = (new Date()).toISOString()
   const spaces = methodName === 'log' ? '  ' : (methodName === 'info' ? ' ' : '')
   const messagePrefix = [`[${Globals.namespace}]`, time, `${methodName.toUpperCase()}:${spaces}`]
-  const outputContainer = _output ? document.querySelector(_output) : null
+  let outputContainer = null
+  try {
+    outputContainer = document.querySelector(_output)
+  } catch {
+    // do nothing
+  }
 
   console[methodName](...messagePrefix, ...args) // eslint-disable-line
 

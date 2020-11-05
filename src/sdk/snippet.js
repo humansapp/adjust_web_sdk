@@ -1,6 +1,10 @@
 /* eslint-disable */
 (function (window, document, tag, url, sdkName, methods, placeholder, script, first) {
 
+  if (typeof window.document !== 'undefined') {
+    return
+  }
+
   var queueName = sdkName + '_q';
 
   window[sdkName] = window[sdkName] || {};
@@ -10,8 +14,8 @@
     placeholder(window[sdkName], window[queueName], methods[i]);
   }
 
-  script = document.createElement(tag);
-  first = document.getElementsByTagName(tag)[0];
+  script = window.document.createElement(tag);
+  first = window.document.getElementsByTagName(tag)[0];
   script.async = true;
   script.src = url;
 
