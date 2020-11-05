@@ -19,6 +19,7 @@
     "prepublishOnly": "npm run test:all"
   },
   "main": "dist/adjust-latest.js",
+  "types": "./types/index.d.ts",
   "keywords": [],
   "author": "Adjust GmbH",
   "license": "MIT",
@@ -70,6 +71,7 @@
   "files": [
     "dist/adjust-latest.js",
     "dist/adjust-latest.min.js",
+    "types/",
     "docs/**/*",
     "CHANGELOG.md"
   ],
