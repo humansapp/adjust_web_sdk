@@ -18,7 +18,7 @@ let _db
  */
 function isSupported () {
   const indexedDB = _getIDB()
-  const iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)
+  const iOS = _getIsiOS()
   const supported = !!indexedDB && !iOS
 
   if (!supported) {
@@ -26,6 +26,14 @@ function isSupported () {
   }
 
   return supported
+}
+
+function _getIsiOS () {
+  try {
+    return !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)
+  } catch {
+    return false
+  }
 }
 
 /**

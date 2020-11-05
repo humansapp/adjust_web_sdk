@@ -4086,7 +4086,8 @@ var _db;
 function isSupported() {
   var indexedDB = _getIDB();
 
-  var iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+  var iOS = _getIsiOS();
+
   var supported = !!indexedDB && !iOS;
 
   if (!supported) {
@@ -4094,6 +4095,14 @@ function isSupported() {
   }
 
   return supported;
+}
+
+function _getIsiOS() {
+  try {
+    return !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+  } catch (_unused) {
+    return false;
+  }
 }
 /**
  * Get indexedDB instance
@@ -4106,7 +4115,7 @@ function isSupported() {
 function _getIDB() {
   try {
     return window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
-  } catch (_unused) {
+  } catch (_unused2) {
     return undefined;
   }
 }
