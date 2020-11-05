@@ -35,7 +35,11 @@ function isSupported () {
  * @private
  */
 function _getIDB () {
-  return window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB
+  try {
+    return window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB
+  } catch {
+    return undefined
+  }
 }
 
 /**
@@ -539,4 +543,3 @@ export {
   destroy,
   __delete
 }
-

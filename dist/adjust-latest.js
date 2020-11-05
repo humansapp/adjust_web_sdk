@@ -4104,7 +4104,11 @@ function isSupported() {
 
 
 function _getIDB() {
-  return window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+  try {
+    return window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+  } catch (_unused) {
+    return undefined;
+  }
 }
 /**
  * Handle database upgrade/initialization
